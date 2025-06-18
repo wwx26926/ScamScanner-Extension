@@ -1,4 +1,8 @@
 fastapi
 uvicorn
+cachetools
 transformers
 torch
+requests
+openai
+python-dotenv

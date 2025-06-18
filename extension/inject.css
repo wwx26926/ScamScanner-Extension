@@ -1,0 +1,12 @@
+#scamscanner-panel {
+  border: 2px solid #007BFF;
+  background: #F0F8FF;
+  padding: 12px; margin: 10px auto;
+  max-width: 800px; font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+#scamscanner-panel h3 { margin: 0 0 8px; color: #0056b3; }
+#scamscanner-panel .result {
+  white-space: pre-wrap; max-height: 300px; overflow-y: auto;
+  font-size: 0.9rem;
+}
