@@ -1,4 +1,3 @@
-````markdown
 # 🚀 ScamScanner-Extension
 
 **Browser extension + backend for the ScamScanner project**
@@ -8,6 +7,7 @@
 ---
 
 ## 📦 Spis treści
+
 1. [Opis projektu](#opis-projektu)
 2. [Funkcjonalności](#funkcjonalności)
 3. [Instalacja](#instalacja)
@@ -20,41 +20,46 @@
 ---
 
 ## 📝 Opis projektu
+
 ScamScanner-Extension to **rozszerzenie przeglądarki**, które umożliwia szybkie skanowanie treści stron internetowych pod kątem potencjalnych oszustw. W tle działa **lokalny backend** oparty na FastAPI i modelu `transformers`.
 
 ---
 
 ## ⚙️ Funkcjonalności
-- 🔍 Analiza zaznaczonego tekstu lub całej strony
-- 🤖 Generowanie odpowiedzi za pomocą lokalnego modelu (np. GPT-2)
-- 🌐 Integracja z backendem FastAPI
-- 🔒 Całkowicie offline (bez konieczności kluczy API)
-- 🎨 Prosty interfejs użytkownika
+
+* 🔍 Analiza zaznaczonego tekstu lub całej strony
+* 🤖 Generowanie odpowiedzi za pomocą lokalnego modelu (np. GPT-2)
+* 🌐 Integracja z backendem FastAPI
+* 🔒 Całkowicie offline (bez konieczności kluczy API)
+* 🎨 Prosty interfejs użytkownika
 
 ---
 
 ## 🚀 Instalacja
 
 ### 1. Backend
+
+Przejdź do folderu `backend` i zainstaluj wymagane paczki:
+
 ```bash
 cd backend
 pip install fastapi uvicorn transformers
-````
+```
 
 ### 2. Frontend (rozszerzenie)
 
-1. Przejdź do folderu `extension/`:
+1. Przejdź do folderu `extension`:
 
    ```bash
    cd extension
    ```
-2. Usuń ewentualne wiodące spacje w nazwach plików:
+2. Usuń wiodące spacje w nazwach plików (jeśli istnieją):
 
    ```bash
    mv " popup.html" popup.html
    mv " popup.js" popup.js
    ```
-3. Upewnij się, że masz folder `icons/` z plikiem `icon.png` (dowolny rozmiar).
+3. Upewnij się, że w folderze `icons` znajduje się plik `icon.png`.
 
 ---
 
@@ -69,18 +74,18 @@ uvicorn server:app --reload --host 0.0.0.0 --port 8000
 
 ### Przeglądarka
 
-1. Otwórz `chrome://extensions` (lub `about:debugging` w Firefox)
-2. Włącz **Tryb programisty**/**Dev Mode**
-3. Kliknij **Load unpacked** i wskaż folder `extension/`
+1. Otwórz `chrome://extensions` (lub `about:debugging` w Firefox).
+2. Włącz **Tryb programisty**/**Dev Mode**.
+3. Kliknij **Load unpacked** i wskaż folder `extension`.
 
 ---
 
 ## 🎯 Użycie
 
 1. Przejdź na dowolną stronę z tekstem.
-2. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️
-3. W popupie naciśnij **Scan** 🖱️
-4. Zobacz wynik w alertcie lub konsoli deweloperskiej 🎉
+2. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
+3. W popupie naciśnij **Scan** 🖱️.
+4. Wynik pojawi się w alertcie lub konsoli deweloperskiej 🎉.
 
 ---
 
@@ -89,16 +94,15 @@ uvicorn server:app --reload --host 0.0.0.0 --port 8000
 ```text
 .
 ├── backend
-│   └── server.py       # FastAPI + lokalny model
+│   ├── server.py       # FastAPI + lokalny model
 │   └── requirements.txt
-├── extension
-│   ├── icons
-│   │   └── icon.png    # ikona rozszerzenia
-│   ├── manifest.json
-│   ├── popup.html
-│   ├── popup.js
-│   └── content.js      # główna logika frontend
-└── README.md           # ten plik
+└── extension
+    ├── icons
+    │   └── icon.png    # ikona rozszerzenia
+    ├── manifest.json
+    ├── popup.html
+    ├── popup.js
+    └── content.js      # główna logika frontend
 ```
 
 ---
@@ -107,14 +111,4 @@ uvicorn server:app --reload --host 0.0.0.0 --port 8000
 
 Chętnie przyjmiemy **pull requesty** i sugestie! Jeśli coś nie działa, zgłoś issue lub skontaktuj się:
 
-* ✉️ Mail: [twoj.email@example.com](mailto:twoj.email@example.com)
-* 🐦 Twitter: [@twoj\_profil](https://twitter.com/twoj_profil)
-
----
-
-## 📜 Licencja
-
-Projekt dostępny na licencji **MIT**. Szczegóły w pliku [LICENSE](LICENSE).
-
-```
-```
+* ✉️ Mail: \[[twoj.email@example.com](mailto:twoj.email@example.com)]\(mailto\:twoj.email
