@@ -1,31 +1,33 @@
-(async () => {
-  const API = "https://<codespace>-8000.preview.app.github.dev/analyze";
-  const text = (document.querySelector("article")||document.body).innerText.substring(0,5000);
-
-  // Pobierz ustawienia
-  const { force_rag } = await chrome.storage.sync.get(["force_rag"]);
-
-  // Wstrzyknij panel ładowania
-  injectPanel("Trwa analiza…");
+// Pobranie tekstu (np. zaznaczonego przez użytkownika) i wysłanie do API
+async function analyzeSelectedText() {
+  // Przykładowy sposób pobrania tekstu z aktywnej strony:
+  const selectedText = window.getSelection().toString() || document.body.innerText;
 
   try {
-    const resp = await fetch(API, {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ text, force_rag })
+    const response = await fetch('http://127.0.0.1:8000/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: selectedText })
     });
-    const { result } = await resp.json();
-    injectPanel(result);
-  } catch (e) {
-    injectPanel("Błąd: " + e.message);
-  }
 
-  function injectPanel(html) {
-    const old = document.getElementById("scanscanner-panel");
-    if (old) old.remove();
-    const panel = document.createElement("div");
-    panel.id = "scamscanner-panel";
-    panel.innerHTML = `<h3>ScamScanner</h3><div class="result">${html}</div>`;
-    (document.querySelector("article")||document.body).prepend(panel);
+    if (!response.ok) throw new Error(`Błąd serwera: ${response.status}`);
+    const data = await response.json();
+    console.log('Wynik analizy:', data);
+    alert(`Wynik: ${data.result}`);
+  } catch (err) {
+    console.error(err);
+    alert(`Nie udało się połączyć: ${err.message}`);
   }
-})();
+}
+
+// Nasłuchiwanie komunikatu z background/popup
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.command === 'analyze') {
+    analyzeSelectedText();
+    sendResponse({ status: 'started' });
+  }
+});
+
+// Dla popup.html: wysłanie komendy
+// W popup.js wystarczy:
+// document.getElementById('scan').onclick = () => chrome.runtime.sendMessage({ command: 'analyze' });
