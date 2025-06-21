@@ -29,7 +29,7 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 * 🔍 Analiza zaznaczonego tekstu lub calej strony
 * 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
 * 🛠️ Wybór modeli (GPT-2, DistilGPT-2, LLaMA 2, Mistral 7B, GPT4All Vicuna)
-* 🧠 Embeddingi `sentence-transformers` i wyszukiwanie w FAISS
+* 🧠 Prosty magazyn embeddingów (bag‑of‑words; docelowo `sentence-transformers` + FAISS)
 * 🗄️ Endpointy `/ingest` i `/search` do zarzadzania baza wektorowa
 * ✅ Opcjonalny fact-checking i proste pipeline'y aktualizacji danych
 * 🎨 Czytelny interfejs z panelem postepu i czasem analizy
