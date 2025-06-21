@@ -26,6 +26,7 @@ ScamScanner-Extension to **okienkowa aplikacja** wspierana przez niewielki lokal
 
 ## ⚙️ Funkcjonalnosci
 
+ xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
 * 📎 Wklej link do artykulu i pobierz tresc
 * 🤖 Generowanie podsumowania lokalnym modelem LLM
 * 📚 Wyszukiwanie powiazanych fragmentow z NewsAPI
@@ -33,6 +34,26 @@ ScamScanner-Extension to **okienkowa aplikacja** wspierana przez niewielki lokal
 * ✅ Opcjonalny fact-checking
 * 🎨 Prosty interfejs okienkowy
 * 🌐 Dziala w trybie offline (bez NewsAPI)
+
+* 🔍 Analiza zaznaczonego tekstu lub calej strony
+* 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
+* 🛠️ Wybór modeli (GPT-2, DistilGPT-2, LLaMA 2, Mistral 7B, GPT4All Vicuna)
+* 🧠 Prosty magazyn embeddingów (bag‑of‑words; docelowo `sentence-transformers` + FAISS)
+* 🗄️ Endpointy `/ingest` i `/search` do zarzadzania baza wektorowa
+* ✅ Opcjonalny fact-checking i proste pipeline'y aktualizacji danych
+* 🎨 Czytelny interfejs z panelem postepu i czasem analizy
+* 🌐 Calkowicie offline (bez koniecznosci kluczy API)
+
+* 🔍 Analiza zaznaczonego tekstu lub całej strony
+* 🤖 Generowanie odpowiedzi lokalnym modelem (możliwość wyboru w popupie)
+* 🌐 Integracja z backendem FastAPI
+* 🔒 Całkowicie offline (bez konieczności kluczy API)
+* 🎨 Prosty interfejs użytkownika
+* 🛠️ Łatwe przełączanie modeli (LLaMA 2, Mistral, GPT4All)
+* 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
+* 🗄️ API do dodawania dokumentów i zapytań
+* ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
+main
 
 ---
 
@@ -48,6 +69,10 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
 
 * Python 3.8+
 * Git (opcjonalnie, jeśli chcesz klonować repo)
+ xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
+ 
+* Przeglądarka Chrome, Edge lub Firefox
+ main
 * (Windows) Uprawnienia do zmiany Execution Policy w PowerShell
 
 ---
@@ -122,6 +147,7 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 
 ### 2.5 Szybki start
+xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
 
 W głównym katalogu projektu uruchom aplikację jednym poleceniem:
 
@@ -129,6 +155,28 @@ W głównym katalogu projektu uruchom aplikację jednym poleceniem:
 python run_gui.py
 ```
 ---
+
+W głównym katalogu projektu możesz uruchomić backend i otworzyć przeglądarkę z wczytanym rozszerzeniem jednym poleceniem:
+
+```bash
+python start.py
+```
+
+---
+
+## 3. Rozszerzenie do przeglądarki
+
+1. Otwórz stronę zarządzania rozszerzeniami w przeglądarce:
+
+   * **Chrome**: `chrome://extensions/`
+   * **Edge**: `edge://extensions/`
+   * **Firefox**: `about:debugging#/runtime/this-firefox`
+2. Włącz tryb dewelopera / Developer mode.
+3. **Chrome/Edge** – kliknij **Load unpacked** i wskaż katalog `extension` (tam, gdzie znajduje się `manifest.json`).
+   **Firefox** – kliknij **Load Temporary Add-on** i wybierz plik `manifest.json` z katalogu `extension`.
+   Jeśli przeglądarka nie pozwala wybrać pliku lub katalogu, upewnij się, że cały projekt został wcześniej rozpakowany z archiwum ZIP.
+4. Po załadowaniu zobaczysz ikonę rozszerzenia na pasku narzędzi.
+main
 
 ---
 
