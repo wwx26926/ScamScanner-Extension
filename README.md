@@ -85,7 +85,8 @@ uvicorn server:app --reload --host 0.0.0.0 --port 8000
 1. Przejdź na dowolną stronę z tekstem.
 2. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
 3. W popupie naciśnij **Scan** 🖱️.
-4. Wynik pojawi się w alertcie lub konsoli deweloperskiej 🎉.
+4. Na stronie pojawi się panel z informacją o postępie ⏳.
+5. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
 
 ---
 
