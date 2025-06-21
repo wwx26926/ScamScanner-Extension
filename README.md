@@ -7,31 +7,33 @@
 ---
 
 ## 📦 Spis treści
-
 1. [Opis projektu](#opis-projektu)
-2. [Funkcjonalności](#funkcjonalności)
+2. [Funkcjonalności](#funkcjonalnosci)
 3. [Instalacja](#instalacja)
 4. [Uruchomienie](#uruchomienie)
-5. [Użycie](#użycie)
-6. [Struktura katalogów](#struktura-katalogów)
-7. [Wkład](#wkład)
-8. [Licencja](#licencja)
+5. [Uzycie](#uzycie)
+6. [Budowanie instalatora](#budowanie-instalatora)
+7. [Struktura katalogow](#struktura-katalogow)
+8. [Wklad](#wklad)
+9. [Licencja](#licencja)
 
 ---
 
 ## 📝 Opis projektu
-
-ScamScanner-Extension to **rozszerzenie przeglądarki**, które umożliwia szybkie skanowanie treści stron internetowych pod kątem potencjalnych oszustw. W tle działa **lokalny backend** oparty na FastAPI i modelu `transformers`.
+ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki lokalny backend oparty na FastAPI. Pozwala blyskawicznie analizowac tresci stron, korzystajac z modeli LLM oraz bazy embeddingow.
 
 ---
 
-## ⚙️ Funkcjonalności
+## ⚙️ Funkcjonalnosci
 
-* 🔍 Analiza zaznaczonego tekstu lub całej strony
-* 🤖 Generowanie odpowiedzi za pomocą lokalnego modelu (np. GPT-2)
-* 🌐 Integracja z backendem FastAPI
-* 🔒 Całkowicie offline (bez konieczności kluczy API)
-* 🎨 Prosty interfejs użytkownika
+* 🔍 Analiza zaznaczonego tekstu lub calej strony
+* 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
+* 🛠️ Wybór modeli (GPT-2, DistilGPT-2, LLaMA 2, Mistral 7B, GPT4All Vicuna)
+* 🧠 Embeddingi `sentence-transformers` i wyszukiwanie w FAISS
+* 🗄️ Endpointy `/ingest` i `/search` do zarzadzania baza wektorowa
+* ✅ Opcjonalny fact-checking i proste pipeline'y aktualizacji danych
+* 🎨 Czytelny interfejs z panelem postepu i czasem analizy
+* 🌐 Calkowicie offline (bez koniecznosci kluczy API)
 
 ---
 
@@ -39,27 +41,29 @@ ScamScanner-Extension to **rozszerzenie przeglądarki**, które umożliwia szybk
 
 ### 1. Backend
 
-Przejdź do folderu `backend` i zainstaluj wymagane paczki:
-
 ```bash
 cd backend
-pip install fastapi uvicorn transformers
+pip install -r requirements1.txt
 ```
 
 ### 2. Frontend (rozszerzenie)
 
-1. Przejdź do folderu `extension`:
+1. Przejdz do katalogu `extension`:
 
    ```bash
    cd extension
    ```
-2. Usuń wiodące spacje w nazwach plików (jeśli istnieją):
+2. Upewnij sie, ze w folderze `icons/` znajduja sie pliki ikon (16/48/128 px).
 
-   ```bash
-   mv " popup.html" popup.html
-   mv " popup.js" popup.js
-   ```
-3. Upewnij się, że w folderze `icons` znajduje się plik `icon.png`.
+### 3. Budowanie instalatora
+
+Automatyczna budowe zapewnia skrypt `scripts/build_installer.py`. Uruchom go z katalogu glownego:
+
+```bash
+python scripts/build_installer.py
+```
+
+Skrypt tworzy samodzielny plik wykonywalny backendu (PyInstaller), a na Windows dodatkowo generuje instalator NSIS w folderze `dist/`.
 
 ---
 
@@ -69,46 +73,61 @@ pip install fastapi uvicorn transformers
 
 ```bash
 cd backend
-uvicorn server:app --reload --host 0.0.0.0 --port 8000
+uvicorn server:app --host 0.0.0.0 --port 8000
 ```
 
-### Przeglądarka
+### Przegladarka
 
-1. Otwórz `chrome://extensions` (lub `about:debugging` w Firefox).
-2. Włącz **Tryb programisty**/**Dev Mode**.
-3. Kliknij **Load unpacked** i wskaż folder `extension`.
-
----
-
-## 🎯 Użycie
-
-1. Przejdź na dowolną stronę z tekstem.
-2. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
-3. W popupie naciśnij **Scan** 🖱️.
-4. Wynik pojawi się w alertcie lub konsoli deweloperskiej 🎉.
+1. Otworz `chrome://extensions` (lub `about:debugging` w Firefox).
+2. Wlacz **Tryb programisty/Developer Mode**.
+3. Wybierz **Load unpacked** i wskaz folder `extension/`.
 
 ---
 
-## 📂 Struktura katalogów
+## 🎯 Uzycie
+
+1. Wejdz na dowolna strone z tekstem.
+2. Kliknij ikone rozszerzenia ScamScanner.
+3. Wybierz model z listy w popupie i nacisnij **Analizuj strone**.
+4. Na gorze strony pojawi sie panel z informacja o postepie i czasem.
+5. Po zakonczeniu otrzymasz wynik analizy w tym samym panelu.
+6. Dokumenty mozna dodawac poprzez endpoint `/ingest`, a wyszukiwanie wykonac przez `/search`.
+
+---
+
+## 📂 Struktura katalogow
 
 ```text
 .
 ├── backend
-│   ├── server.py       # FastAPI + lokalny model
-│   └── requirements.txt
-└── extension
-    ├── icons
-    │   └── icon.png    # ikona rozszerzenia
-    ├── manifest.json
-    ├── popup.html
-    ├── popup.js
-    └── content.js      # główna logika frontend
+│   ├── server.py       # API FastAPI + obsluga modeli
+│   ├── embedding.py    # magazyn wektorow FAISS
+│   ├── model_factory.py
+│   ├── planner.py
+│   └── requirements1.txt
+├── extension
+│   ├── icons/
+│   ├── manifest.json
+│   ├── popup.html
+│   ├── popup.js
+│   ├── content.js
+│   └── inject.css
+└── scripts
+    └── build_installer.py
 ```
 
 ---
 
-## 🙌 Wkład
+## 🙌 Wklad
 
-Chętnie przyjmiemy **pull requesty** i sugestie! Jeśli coś nie działa, zgłoś issue lub skontaktuj się:
+Chetnie przyjmiemy **pull requesty** i sugestie! Jesli cos nie dziala, zglos issue lub napisz:
 
-* ✉️ Mail: \[[twoj.email@example.com](mailto:twoj.email@example.com)]\(mailto\:twoj.email
+* ✉️ Mail: [twoj.email@example.com](mailto:twoj.email@example.com)
+* 🐦 Twitter: [@twoj_profil](https://twitter.com/twoj_profil)
+
+---
+
+## 📜 Licencja
+
+Projekt dostepny na licencji **MIT**. Szczegoly w pliku [LICENSE](LICENSE).
+
