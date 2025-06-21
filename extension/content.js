@@ -19,11 +19,8 @@ function ensurePanel() {
 }
 
 // Pobranie tekstu (np. zaznaczonego przez użytkownika) i wysłanie do API
-- g4twei-codex/wyświetl-wynik-analizy-w-oknie-przeglądarki
 async function analyzeSelectedText(model = 'gpt2') {
-=======
 async function analyzeSelectedText() {
-- main
   const selectedText = window.getSelection().toString() || document.body.innerText;
 
   const panel = ensurePanel();

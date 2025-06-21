@@ -1,3 +1,9 @@
+
+"""Minimal scheduler placeholders for tests."""
+
+def start():
+    pass
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from news_fetcher import fetch_latest_fragments
 
