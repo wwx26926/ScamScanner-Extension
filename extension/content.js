@@ -20,6 +20,7 @@ function ensurePanel() {
 
 // Pobranie tekstu (np. zaznaczonego przez użytkownika) i wysłanie do API
 async function analyzeSelectedText(model = 'gpt2') {
+async function analyzeSelectedText() {
   const selectedText = window.getSelection().toString() || document.body.innerText;
 
   const panel = ensurePanel();

@@ -26,6 +26,7 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 
 ## ⚙️ Funkcjonalnosci
 
+ wl279k-codex/wyświetl-wynik-analizy-w-oknie-przeglądarki
 * 🔍 Analiza zaznaczonego tekstu lub calej strony
 * 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
 * 🛠️ Wybór modeli (GPT-2, DistilGPT-2, LLaMA 2, Mistral 7B, GPT4All Vicuna)
@@ -34,6 +35,17 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 * ✅ Opcjonalny fact-checking i proste pipeline'y aktualizacji danych
 * 🎨 Czytelny interfejs z panelem postepu i czasem analizy
 * 🌐 Calkowicie offline (bez koniecznosci kluczy API)
+=======
+* 🔍 Analiza zaznaczonego tekstu lub całej strony
+* 🤖 Generowanie odpowiedzi lokalnym modelem (możliwość wyboru w popupie)
+* 🌐 Integracja z backendem FastAPI
+* 🔒 Całkowicie offline (bez konieczności kluczy API)
+* 🎨 Prosty interfejs użytkownika
+* 🛠️ Łatwe przełączanie modeli (LLaMA 2, Mistral, GPT4All)
+* 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
+* 🗄️ API do dodawania dokumentów i zapytań
+* ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
+main
 
 ---
 
@@ -93,7 +105,15 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 5. Po zakonczeniu otrzymasz wynik analizy w tym samym panelu.
 6. Dokumenty mozna dodawac poprzez endpoint `/ingest`, a wyszukiwanie wykonac przez `/search`.
 
----
+8. Przejdź na dowolną stronę z tekstem.
+9. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
+10. W popupie wybierz model z listy i naciśnij **Scan** 🖱️.
+11. Na stronie pojawi się panel z informacją o postępie ⏳.
+12. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
+13. Dokumenty można dodawać przez endpoint `/ingest` i zapytania przez `/search`.
+14. W popupie naciśnij **Scan** 🖱️.
+15. Na stronie pojawi się panel z informacją o postępie ⏳.
+16. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
 
 ## 📂 Struktura katalogow
 
