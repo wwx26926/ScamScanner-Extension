@@ -51,93 +51,130 @@ main
 
 ## 🚀 Instalacja
 
-0. Wymagania wstępne
-Python 3.8+
+# ScamScanner
 
-Git (opcjonalnie, jeśli chcesz klonować repo)
+Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backend + rozszerzenie do przeglądarki).
 
-Przeglądarka Chrome lub Firefox
+---
 
-(Windows) Uprawnienia do zmiany Execution Policy w PowerShell
+## 0. Wymagania wstępne
 
-1. Pobranie i rozpakowanie projektu
-Pobierz archiwum ScamScanner-Extension-main.zip i rozpakuj je w wybranym katalogu, np.
+* Python 3.8+
+* Git (opcjonalnie, jeśli chcesz klonować repo)
+* Przeglądarka Chrome lub Firefox
+* (Windows) Uprawnienia do zmiany Execution Policy w PowerShell
 
-Windows: prawy-klik → Wyodrębnij wszystkie → wybierz folder, np. C:\Projects\ScamScanner
+---
 
-macOS/Linux: w terminalu
+## 1. Pobranie i rozpakowanie projektu
 
-bash
-Kopiuj
-Edytuj
-unzip ~/Pobrane/ScamScanner-Extension-main.zip -d ~/Projects/ScamScanner
-Przejdź do katalogu projektu:
+1. Pobierz archiwum `ScamScanner-Extension-main.zip` i rozpakuj je w wybranym katalogu, np.:
 
-bash
-Kopiuj
-Edytuj
-cd /ścieżka/do/ScamScanner-Extension-main
-2. Backend (FastAPI + Python)
-2.1 Utworzenie i aktywacja środowiska wirtualnego
-System	Tworzenie venv	Aktywacja venv
-Windows	py -3 -m venv venv	.\venv\Scripts\Activate.ps1
-macOS/Linux	python3 -m venv venv	source venv/bin/activate
+   * **Windows**: prawy-klik → Wyodrębnij wszystkie → wybierz folder (np. `C:\Projects\ScamScanner`)
+   * **macOS/Linux**: w terminalu:
 
-Windows PowerShell: jeśli aktywacja zgłasza błąd o polityce skryptów, uruchom PowerShell jako Administrator i wpisz:
+   ```bash
+   unzip ~/Pobrane/ScamScanner-Extension-main.zip -d ~/Projects/ScamScanner
+   ```
+2. Przejdź do katalogu projektu:
 
-powershell
-Kopiuj
-Edytuj
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-2.2 Instalacja zależności
-Przejdź do folderu backend:
+   ```bash
+   cd /ścieżka/do/ScamScanner-Extension-main
+   ```
 
-bash
-Kopiuj
-Edytuj
-cd backend
-Upewnij się, że venv jest aktywne (powinno być (venv) w promptcie), a następnie:
+---
 
-bash
-Kopiuj
-Edytuj
-python -m pip install --upgrade pip
-python -m pip install -r requirements1.txt
-2.3 Konfiguracja kluczy
-W katalogu backend utwórz plik .env z dwoma kluczami:
+## 2. Backend (FastAPI + Python)
 
-ini
-Kopiuj
-Edytuj
+### 2.1 Utworzenie i aktywacja środowiska wirtualnego
+
+| System                      | Tworzenie venv         | Aktywacja venv             |
+| --------------------------- | ---------------------- | -------------------------- |
+| **Windows**                 | `py -3 -m venv venv`   | \`.                        |
+| venv\Scripts\Activate.ps1\` |                        |                            |
+| **macOS/Linux**             | `python3 -m venv venv` | `source venv/bin/activate` |
+
+> **Uwaga (Windows)**: jeśli aktywacja zgłasza błąd o polityce skryptów, uruchom PowerShell jako Administrator i wykonaj:
+>
+> ```powershell
+> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
+
+### 2.2 Instalacja zależności
+
+1. Przejdź do folderu `backend`:
+
+   ```bash
+   cd backend
+   ```
+2. Upewnij się, że środowisko wirtualne jest aktywne (`(venv)` w promptcie), a następnie:
+
+   ```bash
+   python -m pip install --upgrade pip
+   python -m pip install -r requirements1.txt
+   ```
+
+### 2.3 Konfiguracja kluczy
+
+W katalogu `backend` utwórz plik `.env` z następującą zawartością:
+
+```ini
 OPENAI_API_KEY=TWÓJ_KLUCZ_OPENAI
 NEWSAPI_KEY=TWÓJ_KLUCZ_NEWSAPI
-(klucze pobierasz z panelu OpenAI i NewsAPI.org)
+```
 
-2.4 Uruchomienie serwera
-Wciąż w backend, uruchom:
+Klucze uzyskasz w panelu OpenAI i na NewsAPI.org.
 
-bash
-Kopiuj
-Edytuj
+### 2.4 Uruchomienie serwera
+
+W katalogu `backend` uruchom:
+
+```bash
 uvicorn server:app --host 0.0.0.0 --port 8000
+```
+
 Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 
-3. Rozszerzenie do przeglądarki
-Otwórz w przeglądarce stronę zarządzania rozszerzeniami:
+---
 
-Chrome: chrome://extensions/
+## 3. Rozszerzenie do przeglądarki
 
-Firefox: about:debugging#/runtime/this-firefox
+1. Otwórz stronę zarządzania rozszerzeniami w przeglądarce:
 
-Włącz tryb dewelopera / Developer mode.
+   * **Chrome**: `chrome://extensions/`
+   * **Firefox**: `about:debugging#/runtime/this-firefox`
+2. Włącz tryb dewelopera / Developer mode.
+3. Kliknij **Load unpacked** (Chrome) lub **Load Temporary Add-on** (Firefox) i wskaż folder:
 
-Kliknij „Load unpacked” (Chrome) lub „Load Temporary Add-on” (Firefox) i wskaż folder:
+   ```
+   /ścieżka/do/ScamScanner-Extension-main/extension
+   ```
+4. Po załadowaniu zobaczysz ikonę rozszerzenia na pasku narzędzi.
 
-swift
-Kopiuj
-Edytuj
-/ścieżka/do/ScamScanner-Extension-main/extension
-Po załadowaniu pojawi się ikona rozszerzenia na pasku narzędzi.
+---
+
+## 4. Test
+
+1. Sprawdź, że w terminalu backend działa serwer bez błędów.
+2. W przeglądarce otwórz dowolną stronę z tekstem (np. artykuł).
+3. Kliknij ikonę **ScamScanner** i poczekaj na analizę.
+
+---
+
+## 5. Najczęstsze problemy
+
+* **`python` lub `pip` nieznane**:
+
+  * Windows: użyj `py -3` zamiast `python`
+  * macOS/Linux: upewnij się, że `python3` jest zainstalowane i w PATH
+* **Brak `(venv)` w promptcie**:
+  upewnij się, że aktywujesz poprawny skrypt `Activate.ps1` lub `activate`
+* **Błędy podczas instalacji pakietów**:
+  wklej pełny log błędu, pomoże to diagnoza
+
+---
+
+Jeśli coś nadal nie działa – dołącz dokładny komunikat błędu i ścieżkę, w której pracujesz. Powodzenia!
 
 ---
 
