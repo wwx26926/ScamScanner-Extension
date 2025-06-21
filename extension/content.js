@@ -19,7 +19,11 @@ function ensurePanel() {
 }
 
 // Pobranie tekstu (np. zaznaczonego przez użytkownika) i wysłanie do API
+- g4twei-codex/wyświetl-wynik-analizy-w-oknie-przeglądarki
+async function analyzeSelectedText(model = 'gpt2') {
+=======
 async function analyzeSelectedText() {
+- main
   const selectedText = window.getSelection().toString() || document.body.innerText;
 
   const panel = ensurePanel();
@@ -33,7 +37,7 @@ async function analyzeSelectedText() {
     const response = await fetch('http://127.0.0.1:8000/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: selectedText })
+      body: JSON.stringify({ text: selectedText, model })
     });
 
     if (!response.ok) throw new Error(`Błąd serwera: ${response.status}`);
@@ -51,7 +55,7 @@ async function analyzeSelectedText() {
 // Nasłuchiwanie komunikatu z background/popup
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (msg.command === 'analyze') {
-    analyzeSelectedText();
+    analyzeSelectedText(msg.model);
     sendResponse({ status: 'started' });
   }
 });

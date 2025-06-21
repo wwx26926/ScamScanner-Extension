@@ -28,10 +28,14 @@ ScamScanner-Extension to **rozszerzenie przeglądarki**, które umożliwia szybk
 ## ⚙️ Funkcjonalności
 
 * 🔍 Analiza zaznaczonego tekstu lub całej strony
-* 🤖 Generowanie odpowiedzi za pomocą lokalnego modelu (np. GPT-2)
+* 🤖 Generowanie odpowiedzi lokalnym modelem (możliwość wyboru w popupie)
 * 🌐 Integracja z backendem FastAPI
 * 🔒 Całkowicie offline (bez konieczności kluczy API)
 * 🎨 Prosty interfejs użytkownika
+* 🛠️ Łatwe przełączanie modeli (LLaMA 2, Mistral, GPT4All)
+* 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
+* 🗄️ API do dodawania dokumentów i zapytań
+* ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
 
 ---
 
@@ -84,9 +88,16 @@ uvicorn server:app --reload --host 0.0.0.0 --port 8000
 
 1. Przejdź na dowolną stronę z tekstem.
 2. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
+- g4twei-codex/wyświetl-wynik-analizy-w-oknie-przeglądarki
+3. W popupie wybierz model z listy i naciśnij **Scan** 🖱️.
+4. Na stronie pojawi się panel z informacją o postępie ⏳.
+5. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
+6. Dokumenty można dodawać przez endpoint `/ingest` i zapytania przez `/search`.
+=======
 3. W popupie naciśnij **Scan** 🖱️.
 4. Na stronie pojawi się panel z informacją o postępie ⏳.
 5. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
+- main
 
 ---
 
