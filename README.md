@@ -26,7 +26,6 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 
 ## ⚙️ Funkcjonalnosci
 
- wl279k-codex/wyświetl-wynik-analizy-w-oknie-przeglądarki
 * 🔍 Analiza zaznaczonego tekstu lub calej strony
 * 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
 * 🛠️ Wybór modeli (GPT-2, DistilGPT-2, LLaMA 2, Mistral 7B, GPT4All Vicuna)
@@ -45,7 +44,6 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 * 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
 * 🗄️ API do dodawania dokumentów i zapytań
 * ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
-main
 
 ---
 
@@ -61,7 +59,7 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
 
 * Python 3.8+
 * Git (opcjonalnie, jeśli chcesz klonować repo)
-* Przeglądarka Chrome lub Firefox
+* Przeglądarka Chrome, Edge lub Firefox
 * (Windows) Uprawnienia do zmiany Execution Policy w PowerShell
 
 ---
@@ -135,6 +133,14 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 
 Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 
+### 2.5 Szybki start
+
+W głównym katalogu projektu możesz uruchomić backend i otworzyć przeglądarkę z wczytanym rozszerzeniem jednym poleceniem:
+
+```bash
+python start.py
+```
+
 ---
 
 ## 3. Rozszerzenie do przeglądarki
@@ -142,13 +148,12 @@ Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 1. Otwórz stronę zarządzania rozszerzeniami w przeglądarce:
 
    * **Chrome**: `chrome://extensions/`
+   * **Edge**: `edge://extensions/`
    * **Firefox**: `about:debugging#/runtime/this-firefox`
 2. Włącz tryb dewelopera / Developer mode.
-3. Kliknij **Load unpacked** (Chrome) lub **Load Temporary Add-on** (Firefox) i wskaż folder:
-
-   ```
-   /ścieżka/do/ScamScanner-Extension-main/extension
-   ```
+3. **Chrome/Edge** – kliknij **Load unpacked** i wskaż katalog `extension` (tam, gdzie znajduje się `manifest.json`).
+   **Firefox** – kliknij **Load Temporary Add-on** i wybierz plik `manifest.json` z katalogu `extension`.
+   Jeśli przeglądarka nie pozwala wybrać pliku lub katalogu, upewnij się, że cały projekt został wcześniej rozpakowany z archiwum ZIP.
 4. Po załadowaniu zobaczysz ikonę rozszerzenia na pasku narzędzi.
 
 ---
