@@ -51,48 +51,93 @@ main
 
 ## 🚀 Instalacja
 
-### 1. Backend
+0. Wymagania wstępne
+Python 3.8+
 
-```bash
+Git (opcjonalnie, jeśli chcesz klonować repo)
+
+Przeglądarka Chrome lub Firefox
+
+(Windows) Uprawnienia do zmiany Execution Policy w PowerShell
+
+1. Pobranie i rozpakowanie projektu
+Pobierz archiwum ScamScanner-Extension-main.zip i rozpakuj je w wybranym katalogu, np.
+
+Windows: prawy-klik → Wyodrębnij wszystkie → wybierz folder, np. C:\Projects\ScamScanner
+
+macOS/Linux: w terminalu
+
+bash
+Kopiuj
+Edytuj
+unzip ~/Pobrane/ScamScanner-Extension-main.zip -d ~/Projects/ScamScanner
+Przejdź do katalogu projektu:
+
+bash
+Kopiuj
+Edytuj
+cd /ścieżka/do/ScamScanner-Extension-main
+2. Backend (FastAPI + Python)
+2.1 Utworzenie i aktywacja środowiska wirtualnego
+System	Tworzenie venv	Aktywacja venv
+Windows	py -3 -m venv venv	.\venv\Scripts\Activate.ps1
+macOS/Linux	python3 -m venv venv	source venv/bin/activate
+
+Windows PowerShell: jeśli aktywacja zgłasza błąd o polityce skryptów, uruchom PowerShell jako Administrator i wpisz:
+
+powershell
+Kopiuj
+Edytuj
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+2.2 Instalacja zależności
+Przejdź do folderu backend:
+
+bash
+Kopiuj
+Edytuj
 cd backend
-pip install -r requirements1.txt
-```
+Upewnij się, że venv jest aktywne (powinno być (venv) w promptcie), a następnie:
 
-### 2. Frontend (rozszerzenie)
+bash
+Kopiuj
+Edytuj
+python -m pip install --upgrade pip
+python -m pip install -r requirements1.txt
+2.3 Konfiguracja kluczy
+W katalogu backend utwórz plik .env z dwoma kluczami:
 
-1. Przejdz do katalogu `extension`:
+ini
+Kopiuj
+Edytuj
+OPENAI_API_KEY=TWÓJ_KLUCZ_OPENAI
+NEWSAPI_KEY=TWÓJ_KLUCZ_NEWSAPI
+(klucze pobierasz z panelu OpenAI i NewsAPI.org)
 
-   ```bash
-   cd extension
-   ```
-2. Upewnij sie, ze w folderze `icons/` znajduja sie pliki ikon (16/48/128 px).
+2.4 Uruchomienie serwera
+Wciąż w backend, uruchom:
 
-### 3. Budowanie instalatora
-
-Automatyczna budowe zapewnia skrypt `scripts/build_installer.py`. Uruchom go z katalogu glownego:
-
-```bash
-python scripts/build_installer.py
-```
-
-Skrypt tworzy samodzielny plik wykonywalny backendu (PyInstaller), a na Windows dodatkowo generuje instalator NSIS w folderze `dist/`.
-
----
-
-## ▶️ Uruchomienie
-
-### Backend
-
-```bash
-cd backend
+bash
+Kopiuj
+Edytuj
 uvicorn server:app --host 0.0.0.0 --port 8000
-```
+Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 
-### Przegladarka
+3. Rozszerzenie do przeglądarki
+Otwórz w przeglądarce stronę zarządzania rozszerzeniami:
 
-1. Otworz `chrome://extensions` (lub `about:debugging` w Firefox).
-2. Wlacz **Tryb programisty/Developer Mode**.
-3. Wybierz **Load unpacked** i wskaz folder `extension/`.
+Chrome: chrome://extensions/
+
+Firefox: about:debugging#/runtime/this-firefox
+
+Włącz tryb dewelopera / Developer mode.
+
+Kliknij „Load unpacked” (Chrome) lub „Load Temporary Add-on” (Firefox) i wskaż folder:
+
+swift
+Kopiuj
+Edytuj
+/ścieżka/do/ScamScanner-Extension-main/extension
+Po załadowaniu pojawi się ikona rozszerzenia na pasku narzędzi.
 
 ---
 
