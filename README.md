@@ -13,9 +13,10 @@
 3. [Instalacja](#instalacja)
 4. [Uruchomienie](#uruchomienie)
 5. [Użycie](#użycie)
-6. [Struktura katalogów](#struktura-katalogów)
-7. [Wkład](#wkład)
-8. [Licencja](#licencja)
+6. [Budowanie instalatora](#budowanie-instalatora)
+7. [Struktura katalogów](#struktura-katalogów)
+8. [Wkład](#wkład)
+9. [Licencja](#licencja)
 
 ---
 
@@ -64,6 +65,18 @@ pip install fastapi uvicorn transformers
    mv " popup.js" popup.js
    ```
 3. Upewnij się, że w folderze `icons` znajduje się plik `icon.png`.
+
+### 3. Budowanie instalatora
+
+Automatyzację procesu budowy zapewnia skrypt `scripts/build_installer.py`. Uruchom go
+z katalogu głównego projektu:
+
+```bash
+python scripts/build_installer.py
+```
+
+Skrypt sprawdzi wymagane narzędzia, utworzy plik wykonywalny backendu przy użyciu
+PyInstaller i (na Windows) wygeneruje instalator NSIS w katalogu `dist`.
 
 ---
 
