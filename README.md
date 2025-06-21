@@ -1,6 +1,6 @@
 # 🚀 ScamScanner-Extension
 
-**Browser extension + backend for the ScamScanner project**
+**Desktop GUI and backend for the ScamScanner project**
 
 ![ScamScanner Logo](extension/icons/icon.png)
 
@@ -20,11 +20,20 @@
 ---
 
 ## 📝 Opis projektu
-ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki lokalny backend oparty na FastAPI. Pozwala blyskawicznie analizowac tresci stron, korzystajac z modeli LLM oraz bazy embeddingow.
+ScamScanner-Extension to **okienkowa aplikacja** wspierana przez niewielki lokalny backend oparty na FastAPI. Pozwala analizowac linki do artykulow, wyszukiwac potwierdzenia w zrodlach i generowac podsumowanie.
 
 ---
 
 ## ⚙️ Funkcjonalnosci
+
+ xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
+* 📎 Wklej link do artykulu i pobierz tresc
+* 🤖 Generowanie podsumowania lokalnym modelem LLM
+* 📚 Wyszukiwanie powiazanych fragmentow z NewsAPI
+* 🧠 Baza embeddingow FAISS jako kontekst
+* ✅ Opcjonalny fact-checking
+* 🎨 Prosty interfejs okienkowy
+* 🌐 Dziala w trybie offline (bez NewsAPI)
 
 * 🔍 Analiza zaznaczonego tekstu lub calej strony
 * 🤖 Generowanie odpowiedzi lokalnym modelem (lista modeli w popupie)
@@ -34,7 +43,7 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 * ✅ Opcjonalny fact-checking i proste pipeline'y aktualizacji danych
 * 🎨 Czytelny interfejs z panelem postepu i czasem analizy
 * 🌐 Calkowicie offline (bez koniecznosci kluczy API)
-=======
+
 * 🔍 Analiza zaznaczonego tekstu lub całej strony
 * 🤖 Generowanie odpowiedzi lokalnym modelem (możliwość wyboru w popupie)
 * 🌐 Integracja z backendem FastAPI
@@ -44,6 +53,7 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 * 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
 * 🗄️ API do dodawania dokumentów i zapytań
 * ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
+main
 
 ---
 
@@ -51,7 +61,7 @@ ScamScanner-Extension to **rozszerzenie przegladarki** wspierane przez niewielki
 
 # ScamScanner
 
-Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backend + rozszerzenie do przeglądarki).
+Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backend + aplikacja okienkowa).
 
 ---
 
@@ -59,7 +69,10 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
 
 * Python 3.8+
 * Git (opcjonalnie, jeśli chcesz klonować repo)
+ xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
+ 
 * Przeglądarka Chrome, Edge lub Firefox
+ main
 * (Windows) Uprawnienia do zmiany Execution Policy w PowerShell
 
 ---
@@ -134,6 +147,14 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
 
 ### 2.5 Szybki start
+xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
+
+W głównym katalogu projektu uruchom aplikację jednym poleceniem:
+
+```bash
+python run_gui.py
+```
+---
 
 W głównym katalogu projektu możesz uruchomić backend i otworzyć przeglądarkę z wczytanym rozszerzeniem jednym poleceniem:
 
@@ -155,14 +176,15 @@ python start.py
    **Firefox** – kliknij **Load Temporary Add-on** i wybierz plik `manifest.json` z katalogu `extension`.
    Jeśli przeglądarka nie pozwala wybrać pliku lub katalogu, upewnij się, że cały projekt został wcześniej rozpakowany z archiwum ZIP.
 4. Po załadowaniu zobaczysz ikonę rozszerzenia na pasku narzędzi.
+main
 
 ---
 
 ## 4. Test
 
-1. Sprawdź, że w terminalu backend działa serwer bez błędów.
-2. W przeglądarce otwórz dowolną stronę z tekstem (np. artykuł).
-3. Kliknij ikonę **ScamScanner** i poczekaj na analizę.
+1. Uruchom `python run_gui.py`.
+2. W oknie wklej adres artykułu i kliknij **Analyze**.
+3. Po chwili zobaczysz wynik.
 
 ---
 
@@ -185,22 +207,19 @@ Jeśli coś nadal nie działa – dołącz dokładny komunikat błędu i ścież
 
 ## 🎯 Uzycie
 
-1. Wejdz na dowolna strone z tekstem.
-2. Kliknij ikone rozszerzenia ScamScanner.
-3. Wybierz model z listy w popupie i nacisnij **Analizuj strone**.
-4. Na gorze strony pojawi sie panel z informacja o postepie i czasem.
-5. Po zakonczeniu otrzymasz wynik analizy w tym samym panelu.
-6. Dokumenty mozna dodawac poprzez endpoint `/ingest`, a wyszukiwanie wykonac przez `/search`.
+1. Uruchom `python run_gui.py`.
+2. Wklej link do artykulu w pole.
+3. Kliknij **Analyze** i poczekaj na wynik.
+4. Dokumenty mozesz dodawac przez `/ingest` a wyszukiwanie wykonywac przez `/search`.
+5. Aby uzyc wersji przegladarkowej, uruchom `python start.py` i zaladuj rozszerzenie w trybie deweloperskim.
 
-8. Przejdź na dowolną stronę z tekstem.
-9. Kliknij ikonę rozszerzenia ScamScanner 🕵️‍♂️.
-10. W popupie wybierz model z listy i naciśnij **Scan** 🖱️.
-11. Na stronie pojawi się panel z informacją o postępie ⏳.
-12. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
-13. Dokumenty można dodawać przez endpoint `/ingest` i zapytania przez `/search`.
-14. W popupie naciśnij **Scan** 🖱️.
-15. Na stronie pojawi się panel z informacją o postępie ⏳.
-16. Po zakończeniu zobaczysz wynik oraz czas wykonania analizy 🎉.
+## 🏗 Budowanie instalatora
+
+Gotowa paczka moze zostac utworzona poleceniem:
+
+```bash
+python scripts/build_installer.py
+```
 
 ## 📂 Struktura katalogow
 
@@ -212,20 +231,9 @@ Jeśli coś nadal nie działa – dołącz dokładny komunikat błędu i ścież
 │   ├── model_factory.py
 │   ├── planner.py
 │   └── requirements1.txt
-├── extension
-│   ├── icons/
-│   ├── manifest.json
-│   ├── popup.html
-│   ├── popup.js
-│   ├── content.js
-│   └── inject.css
-└── scripts
-    └── build_installer.py
+├── gui.py
+└── tests
+    └── test_end_to_end.py
 ```
-
----
-
-## 📜 Licencja
-
 Projekt dostepny na licencji **MIT**. Szczegoly w pliku [LICENSE](LICENSE).
 
