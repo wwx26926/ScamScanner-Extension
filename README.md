@@ -138,15 +138,6 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 
 ---
 
-## 🙌 Wklad
-
-Chetnie przyjmiemy **pull requesty** i sugestie! Jesli cos nie dziala, zglos issue lub napisz:
-
-* ✉️ Mail: [twoj.email@example.com](mailto:twoj.email@example.com)
-* 🐦 Twitter: [@twoj_profil](https://twitter.com/twoj_profil)
-
----
-
 ## 📜 Licencja
 
 Projekt dostepny na licencji **MIT**. Szczegoly w pliku [LICENSE](LICENSE).
