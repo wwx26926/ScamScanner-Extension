@@ -1,17 +1,22 @@
 from fastapi import FastAPI, Request
 from transformers import pipeline
 
-app = FastAPI(title="ScamScanner Local API")
+generators = {}
 
-# Inicjalizacja lokalnego modelu (np. gpt2 lub inny dostępny)
-local_generator = pipeline(
-    'text-generation',
-    model='gpt2',           # zmień na swoją ścieżkę lub nazwę modelu
-    device_map={'': -1},    # CPU
-    max_length=150,
-    do_sample=True,
-    temperature=0.7,
-)
+def get_generator(model_name: str):
+    """Return a cached text-generation pipeline for the given model."""
+    if model_name not in generators:
+        generators[model_name] = pipeline(
+            'text-generation',
+            model=model_name,
+            device_map={'': -1},
+            max_length=150,
+            do_sample=True,
+            temperature=0.7,
+        )
+    return generators[model_name]
+
+app = FastAPI(title="ScamScanner Local API")
 
 @app.post('/analyze')
 async def analyze(req: Request):
@@ -22,7 +27,8 @@ async def analyze(req: Request):
     """
     data = await req.json()
     text = data.get('text', '')
+    model = data.get('model', 'gpt2')
 
-    # Generujemy odpowiedź lokalnie
-    generated = local_generator(text, num_return_sequences=1)[0]['generated_text']
+    generator = get_generator(model)
+    generated = generator(text, num_return_sequences=1)[0]['generated_text']
     return { 'result': generated }
