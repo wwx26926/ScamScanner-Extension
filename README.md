@@ -26,7 +26,6 @@ ScamScanner-Extension to **okienkowa aplikacja** wspierana przez niewielki lokal
 
 ## ⚙️ Funkcjonalnosci
 
- xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
 * 📎 Wklej link do artykulu i pobierz tresc
 * 🤖 Generowanie podsumowania lokalnym modelem LLM
 * 📚 Wyszukiwanie powiazanych fragmentow z NewsAPI
@@ -53,7 +52,6 @@ ScamScanner-Extension to **okienkowa aplikacja** wspierana przez niewielki lokal
 * 🧠 Wyszukiwanie w bazie embeddingów (FAISS)
 * 🗄️ API do dodawania dokumentów i zapytań
 * ✅ Opcjonalny fact-checking przed zwróceniem odpowiedzi
-main
 
 ---
 
@@ -69,10 +67,8 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
 
 * Python 3.8+
 * Git (opcjonalnie, jeśli chcesz klonować repo)
- xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
  
 * Przeglądarka Chrome, Edge lub Firefox
- main
 * (Windows) Uprawnienia do zmiany Execution Policy w PowerShell
 
 ---
@@ -99,11 +95,10 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
 
 ### 2.1 Utworzenie i aktywacja środowiska wirtualnego
 
-| System                      | Tworzenie venv         | Aktywacja venv             |
-| --------------------------- | ---------------------- | -------------------------- |
-| **Windows**                 | `py -3 -m venv venv`   | \`.                        |
-| venv\Scripts\Activate.ps1\` |                        |                            |
-| **macOS/Linux**             | `python3 -m venv venv` | `source venv/bin/activate` |
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # Windows: .\.venv\Scripts\Activate.ps1
+```
 
 > **Uwaga (Windows)**: jeśli aktywacja zgłasza błąd o polityce skryptów, uruchom PowerShell jako Administrator i wykonaj:
 >
@@ -118,11 +113,19 @@ Uniwersalna instrukcja instalacji i uruchomienia projektu **ScamScanner** (backe
    ```bash
    cd backend
    ```
-2. Upewnij się, że środowisko wirtualne jest aktywne (`(venv)` w promptcie), a następnie:
+2. Upewnij się, że środowisko wirtualne jest aktywne (`(venv)` w promptcie), a następnie zainstaluj zależności:
 
    ```bash
    python -m pip install --upgrade pip
    python -m pip install -r requirements1.txt
+   # brakujacy pakiet do konfiguracji
+   python -m pip install pydantic-settings
+   ```
+
+3. (Opcjonalnie) jeśli podczas uruchamiania pojawi się błąd `ModuleNotFoundError: No module named 'tkinter'`, doinstaluj bibliotekę GUI:
+
+   ```bash
+   sudo apt update && sudo apt install -y python3-tk
    ```
 
 ### 2.3 Konfiguracja kluczy
@@ -138,30 +141,42 @@ Klucze uzyskasz w panelu OpenAI i na NewsAPI.org.
 
 ### 2.4 Uruchomienie serwera
 
-W katalogu `backend` uruchom:
+W katalogu `backend` uruchom serwer developerski:
 
 ```bash
-uvicorn server:app --host 0.0.0.0 --port 8000
+python3 -m uvicorn server:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie 8000.
+Powinieneś zobaczyć komunikat, że FastAPI nasłuchuje na porcie `8000`.
+
+Następnie w **drugim terminalu** (wciąż w aktywnym środowisku `.venv` i w katalogu głównym projektu) uruchom część okienkową:
+
+```bash
+python3 gui.py
+```
+
 
 ### 2.5 Szybki start
-xviqcm-codex/rozwiązać-problem-z-dodatkiem-do-przeglądarki
 
-W głównym katalogu projektu uruchom aplikację jednym poleceniem:
+W głównym katalogu projektu uruchom:
+
+```bash
+python auto_setup.py
+```
+
+Skrypt utworzy środowisko `.venv`, doinstaluje zależności i uruchomi GUI.
+
+Jeśli masz już skonfigurowane środowisko, nadal możesz użyć:
 
 ```bash
 python run_gui.py
 ```
----
 
-W głównym katalogu projektu możesz uruchomić backend i otworzyć przeglądarkę z wczytanym rozszerzeniem jednym poleceniem:
+lub, aby otworzyć rozszerzenie w przeglądarce:
 
 ```bash
 python start.py
 ```
-
 ---
 
 ## 3. Rozszerzenie do przeglądarki
@@ -176,7 +191,6 @@ python start.py
    **Firefox** – kliknij **Load Temporary Add-on** i wybierz plik `manifest.json` z katalogu `extension`.
    Jeśli przeglądarka nie pozwala wybrać pliku lub katalogu, upewnij się, że cały projekt został wcześniej rozpakowany z archiwum ZIP.
 4. Po załadowaniu zobaczysz ikonę rozszerzenia na pasku narzędzi.
-main
 
 ---
 
